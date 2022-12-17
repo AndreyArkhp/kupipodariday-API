@@ -1,5 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Length, IsUrl, IsEmail, IsString } from 'class-validator';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Wish } from '../../wishes/entities/wish.entity';
 import { Wishlist } from '../../wishlists/entities/wishlist.entity';
 
@@ -7,36 +13,29 @@ import { Wishlist } from '../../wishlists/entities/wishlist.entity';
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
-  @Column()
+  @UpdateDateColumn()
   updatedAt: Date;
   @Column({
     unique: true,
     length: 30,
   })
-  @Length(2, 30)
-  @IsString()
   username: string;
   @Column({
     default: 'Пока ничего не рассказал о себе',
     length: 200,
   })
-  @Length(2, 200)
-  @IsString()
   about: string;
   @Column({
     default: 'https://i.pravatar.cc/300',
   })
-  @IsUrl()
   avatar: string;
   @Column({
     unique: true,
   })
-  @IsEmail()
   email: string;
   @Column()
-  @IsString()
   password: string;
   @OneToMany(() => Wish, (wish) => wish.owner)
   wishes: Wish[];

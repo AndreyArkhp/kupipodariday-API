@@ -7,15 +7,17 @@ import {
   ManyToOne,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class Offer {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
-  @Column()
+  @UpdateDateColumn()
   updatedAt: Date;
   @ManyToOne(() => Wish, (wish) => wish.offers)
   item: Wish;

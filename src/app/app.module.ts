@@ -3,6 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from '../users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from '../users/entities/user.entity';
+import { Wish } from '../wishes/entities/wish.entity';
+import { Wishlist } from '../wishlists/entities/wishlist.entity';
+import { Offer } from '../offers/entities/offer.entity';
 
 @Module({
   imports: [
@@ -14,11 +18,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'student',
       password: 'student',
       database: 'nest_project',
-      entities: [],
+      entities: [User, Wish, Wishlist, Offer],
       synchronize: true,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
