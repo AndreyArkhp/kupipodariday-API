@@ -10,6 +10,10 @@ import {
 } from 'typeorm';
 import { Wish } from '../../wishes/entities/wish.entity';
 import { User } from 'src/users/entities/user.entity';
+import {
+  wishlistDescriptionLength,
+  wishlistNameLength,
+} from 'src/common/constants';
 
 @Entity()
 export class Wishlist {
@@ -20,11 +24,11 @@ export class Wishlist {
   @UpdateDateColumn()
   updatedAt: Date;
   @Column({
-    length: 250,
+    length: wishlistNameLength.max,
   })
   name: string;
   @Column({
-    length: 1500,
+    length: wishlistDescriptionLength.max,
   })
   description: string;
   @Column()

@@ -8,7 +8,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
-import { Offer } from 'src/offers/entities/offer.entity';
+import { Offer } from '../../offers/entities/offer.entity';
+import {
+  lengthNumberOfMoney,
+  roundToHundredths,
+  wishDescriptionLength,
+  wishNameLength,
+} from '../../common/constants';
 
 @Entity()
 export class Wish {
@@ -19,7 +25,7 @@ export class Wish {
   @UpdateDateColumn()
   updatedAt: Date;
   @Column({
-    length: 250,
+    length: wishNameLength.max,
   })
   name: string;
   @Column()
@@ -27,17 +33,17 @@ export class Wish {
   @Column()
   image: string;
   @Column({
-    scale: 2,
+    scale: roundToHundredths,
   })
   price: number;
   @Column({
-    scale: 2,
+    scale: roundToHundredths,
   })
   raised: number;
   @ManyToOne(() => User, (user) => user.wishes)
   owner: User;
   @Column({
-    length: 1024,
+    length: wishDescriptionLength.max,
   })
   description: string;
   @OneToMany(() => Offer, (offer) => offer.item)

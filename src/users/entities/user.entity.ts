@@ -1,4 +1,10 @@
 import {
+  userAboutDefault,
+  userAboutLength,
+  userAvatarDefault,
+  usernameLength,
+} from '../../common/constants';
+import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
@@ -19,16 +25,16 @@ export class User {
   updatedAt: Date;
   @Column({
     unique: true,
-    length: 30,
+    length: usernameLength.max,
   })
   username: string;
   @Column({
-    default: 'Пока ничего не рассказал о себе',
-    length: 200,
+    default: userAboutDefault,
+    length: userAboutLength.max,
   })
   about: string;
   @Column({
-    default: 'https://i.pravatar.cc/300',
+    default: userAvatarDefault,
   })
   avatar: string;
   @Column({
