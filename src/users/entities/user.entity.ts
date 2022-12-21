@@ -29,7 +29,6 @@ export class User {
   })
   username: string;
   @Column({
-    default: userAboutDefault,
     length: userAboutLength.max,
   })
   about: string;

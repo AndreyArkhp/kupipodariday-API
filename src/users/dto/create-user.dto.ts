@@ -2,14 +2,13 @@ import { IsString, Length, IsUrl, IsEmail, IsOptional } from 'class-validator';
 import {
   userAboutLength,
   usernameLength,
-  userPasswirdLengthMin,
+  userPasswordLengthMin,
 } from '../../common/constants';
 
 export class CreateUserDto {
   @IsString()
   @Length(usernameLength.min, usernameLength.max)
   username: string;
-  @IsOptional()
   @IsString()
   @Length(userAboutLength.min, userAboutLength.max)
   about?: string;
@@ -19,6 +18,6 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
   @IsString()
-  @Length(userPasswirdLengthMin)
+  @Length(userPasswordLengthMin)
   password: string;
 }

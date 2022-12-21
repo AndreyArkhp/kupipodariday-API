@@ -9,4 +9,5 @@ export default () => ({
     database: process.env.DB_NAME,
   },
   secretKey: process.env.SECRET_KEY,
+  expiresIn: 3600,
 });

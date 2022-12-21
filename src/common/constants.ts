@@ -26,10 +26,10 @@ export const enum usernameLength {
   max = 30,
 }
 export const enum userAboutLength {
-  min = 2,
+  min = 0,
   max = 200,
 }
-export const userPasswirdLengthMin = 2;
+export const userPasswordLengthMin = 2;
 export const userAboutDefault = 'Пока ничего не рассказал о себе';
 export const userAvatarDefault = 'https://i.pravatar.cc/300';
 
