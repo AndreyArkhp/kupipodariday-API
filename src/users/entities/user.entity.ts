@@ -40,7 +40,9 @@ export class User {
     unique: true,
   })
   email: string;
-  @Column()
+  @Column({
+    select: false,
+  })
   password: string;
   @OneToMany(() => Wish, (wish) => wish.owner)
   wishes: Wish[];
