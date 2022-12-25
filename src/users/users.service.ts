@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { saltRounds } from 'src/common/constants';
@@ -57,7 +57,10 @@ export class UsersService {
 
   async findMany(findUsersDto: FindUsersDto) {
     return await this.usersRepository.find({
-      where: [{ email: findUsersDto.query }, { username: findUsersDto.query }],
+      where: [
+        { email: ILike(findUsersDto.query) },
+        { username: ILike(findUsersDto.query) },
+      ],
     });
   }
 }

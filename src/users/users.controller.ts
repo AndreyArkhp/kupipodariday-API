@@ -15,11 +15,16 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RequestWithUser } from '../types';
 import { FindUsersDto } from './dto/find-user.dto';
+import { WishesService } from 'src/wishes/wishes.service';
+import { User } from './entities/user.entity';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'))
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly wishesService: WishesService,
+  ) {}
 
   @Get('me')
   find(@Req() req: RequestWithUser) {
@@ -37,5 +42,10 @@ export class UsersController {
     @Req() req: RequestWithUser,
   ) {
     return this.usersService.update(updateUserDto, req);
+  }
+
+  @Get('me/wishes')
+  findUserWishes(@Req() req: RequestWithUser) {
+    return this.wishesService.findUserWishes(req.user);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RequestWithUser } from 'src/types';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateWishDto } from './dto/create-wish.dto';
 import { UpdateWishDto } from './dto/update-wish.dto';
@@ -22,7 +23,9 @@ export class WishesService {
   }
 
   findAll() {
-    return `This action returns all wishes`;
+    return this.wishRepository.find({
+      relations: { owner: true, offers: true },
+    });
   }
 
   findOne(id: number) {
@@ -35,5 +38,11 @@ export class WishesService {
 
   remove(id: number) {
     return `This action removes a #${id} wish`;
+  }
+
+  findUserWishes(user: User) {
+    return this.findAll().then((wishes) => {
+      return wishes.filter((wish) => wish.owner.id === user.id);
+    });
   }
 }
