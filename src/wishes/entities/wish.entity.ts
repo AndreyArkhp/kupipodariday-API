@@ -33,11 +33,15 @@ export class Wish {
   @Column()
   image: string;
   @Column({
+    type: 'numeric',
     scale: roundToHundredths,
+    default: 0,
   })
   price: number;
   @Column({
+    type: 'numeric',
     scale: roundToHundredths,
+    default: 0,
   })
   raised: number;
   @ManyToOne(() => User, (user) => user.wishes)
@@ -48,6 +52,6 @@ export class Wish {
   description: string;
   @OneToMany(() => Offer, (offer) => offer.item)
   offers: Offer[];
-  @Column()
+  @Column({ default: 0 })
   copied: number;
 }

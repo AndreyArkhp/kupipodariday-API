@@ -43,6 +43,9 @@ export const enum wishDescriptionLength {
   max = 1024,
 }
 
+export const wishNumberLimitMessage =
+  'Число должно быть положительным и иметь не более двух знаков после запятой';
+
 //Wishlist
 export const enum wishlistNameLength {
   min = 1,

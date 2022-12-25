@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Body,
+  Req,
   Patch,
   Param,
   Delete,
@@ -10,14 +11,18 @@ import {
 import { WishesService } from './wishes.service';
 import { CreateWishDto } from './dto/create-wish.dto';
 import { UpdateWishDto } from './dto/update-wish.dto';
+import { RequestWithUser } from 'src/types';
+import { UseGuards } from '@nestjs/common/decorators';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('wishes')
+@UseGuards(AuthGuard('jwt'))
 export class WishesController {
   constructor(private readonly wishesService: WishesService) {}
 
   @Post()
-  create(@Body() createWishDto: CreateWishDto) {
-    return this.wishesService.create(createWishDto);
+  create(@Body() createWishDto: CreateWishDto, @Req() req: RequestWithUser) {
+    return this.wishesService.create(createWishDto, req);
   }
 
   @Get()
