@@ -5,9 +5,7 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   UseGuards,
-  Res,
   Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -16,7 +14,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { RequestWithUser } from '../types';
 import { FindUsersDto } from './dto/find-user.dto';
 import { WishesService } from 'src/wishes/wishes.service';
-import { User } from './entities/user.entity';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'))
@@ -31,6 +28,22 @@ export class UsersController {
     return req.user;
   }
 
+  @Get(':username')
+  findUserByName(@Param('username') username: string) {
+    return this.usersService.findByUserName(username);
+  }
+
+  @Get('me/wishes')
+  findUserWishes(@Req() req: RequestWithUser) {
+    return this.wishesService.findUserWishes(req.user);
+  }
+
+  @Get(':username/wishes')
+  async findWishesByUserName(@Param('username') username: string) {
+    const user = await this.usersService.findByUserName(username);
+    return this.wishesService.findUserWishes(user);
+  }
+
   @Post('find')
   findMany(@Body() findUsersDto: FindUsersDto) {
     return this.usersService.findMany(findUsersDto);
@@ -42,10 +55,5 @@ export class UsersController {
     @Req() req: RequestWithUser,
   ) {
     return this.usersService.update(updateUserDto, req);
-  }
-
-  @Get('me/wishes')
-  findUserWishes(@Req() req: RequestWithUser) {
-    return this.wishesService.findUserWishes(req.user);
   }
 }
