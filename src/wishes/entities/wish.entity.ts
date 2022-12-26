@@ -6,6 +6,7 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Offer } from '../../offers/entities/offer.entity';
@@ -15,6 +16,7 @@ import {
   wishDescriptionLength,
   wishNameLength,
 } from '../../common/constants';
+import { Wishlist } from 'src/wishlists/entities/wishlist.entity';
 
 @Entity()
 export class Wish {

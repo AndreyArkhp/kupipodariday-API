@@ -29,6 +29,7 @@ export class Wishlist {
   name: string;
   @Column({
     length: wishlistDescriptionLength.max,
+    default: 'Моя подборка',
   })
   description: string;
   @Column()
