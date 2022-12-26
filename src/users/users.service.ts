@@ -8,12 +8,14 @@ import { User } from './entities/user.entity';
 import { saltRounds } from 'src/common/constants';
 import { RequestWithUser } from 'src/types';
 import { FindUsersDto } from './dto/find-user.dto';
+import { ResponseUserPublicDto } from './dto/response-user-public.dto';
+import { WishesService } from 'src/wishes/wishes.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private readonly usersRepository: Repository<User>,
   ) {}
   async create(createUserDto: CreateUserDto) {
     try {
@@ -32,10 +34,10 @@ export class UsersService {
     return user;
   }
 
-  async findByUserName(username: string) {
+  async findByUserName(username: string, password = false) {
     const user = await this.usersRepository
       .createQueryBuilder('user')
-      .addSelect('user.password')
+      .addSelect(password ? 'user.password' : '')
       .where('user.username = :username', { username })
       .getOne();
     return user;
