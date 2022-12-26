@@ -9,5 +9,5 @@ export default () => ({
     database: process.env.DB_NAME || 'nest_project',
   },
   secretKey: process.env.SECRET_KEY || '39cf54cebdd3dd01',
-  expiresIn: 3600,
+  expiresIn: 3600 * 24,
 });
