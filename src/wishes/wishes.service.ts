@@ -14,12 +14,11 @@ export class WishesService {
     private readonly wishRepository: Repository<Wish>,
   ) {}
   async create(createWishDto: CreateWishDto, req: RequestWithUser) {
-    console.log(req.user);
-
-    return await this.wishRepository.save({
+    await this.wishRepository.save({
       ...createWishDto,
       owner: req.user,
     });
+    return {};
   }
 
   findAll() {
@@ -29,20 +28,57 @@ export class WishesService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} wish`;
-  }
-
-  update(id: number, updateWishDto: UpdateWishDto) {
-    return `This action updates a #${id} wish`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} wish`;
-  }
-
-  findUserWishes(user: User) {
-    return this.findAll().then((wishes) => {
-      return wishes.filter((wish) => wish.owner.id === user.id);
+    return this.wishRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        owner: true,
+      },
     });
+  }
+
+  updateOne(id: number) {
+    return {};
+  }
+
+  async remove(id: number) {
+    const wish = await this.findOne(id);
+    try {
+      await this.wishRepository.delete(id);
+      return wish;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  async findUserWishes(user: User) {
+    const wishes = await this.findAll();
+    return wishes.filter((wish) => wish.owner.id === user.id);
+  }
+
+  async findTop() {
+    return await this.wishRepository.find({
+      order: { copied: 'DESC' },
+      take: 20,
+    });
+  }
+
+  async findLast() {
+    return await this.wishRepository.find({
+      order: { createdAt: 'DESC' },
+      take: 40,
+    });
+  }
+
+  async copyWish(id: number, req: RequestWithUser) {
+    const wish = await this.findOne(id);
+    await this.wishRepository.update(id, { copied: ++wish.copied });
+    const { id: wishId, createdAt, updatedAt, owner, ...rest } = wish;
+    const newWish = {
+      ...rest,
+      raised: '0',
+    };
+    return this.create(newWish, req);
   }
 }
