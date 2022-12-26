@@ -8,8 +8,6 @@ import { User } from './entities/user.entity';
 import { saltRounds } from 'src/common/constants';
 import { RequestWithUser } from 'src/types';
 import { FindUsersDto } from './dto/find-user.dto';
-import { ResponseUserPublicDto } from './dto/response-user-public.dto';
-import { WishesService } from 'src/wishes/wishes.service';
 
 @Injectable()
 export class UsersService {

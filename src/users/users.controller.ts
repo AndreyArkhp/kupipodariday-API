@@ -28,14 +28,22 @@ export class UsersController {
     return req.user;
   }
 
-  @Get(':username')
-  findUserByName(@Param('username') username: string) {
-    return this.usersService.findByUserName(username);
+  @Patch('me')
+  updateProfile(
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: RequestWithUser,
+  ) {
+    return this.usersService.update(updateUserDto, req);
   }
 
   @Get('me/wishes')
   findUserWishes(@Req() req: RequestWithUser) {
     return this.wishesService.findUserWishes(req.user);
+  }
+
+  @Get(':username')
+  findUserByName(@Param('username') username: string) {
+    return this.usersService.findByUserName(username);
   }
 
   @Get(':username/wishes')
@@ -47,13 +55,5 @@ export class UsersController {
   @Post('find')
   findMany(@Body() findUsersDto: FindUsersDto) {
     return this.usersService.findMany(findUsersDto);
-  }
-
-  @Patch('me')
-  updateProfile(
-    @Body() updateUserDto: UpdateUserDto,
-    @Req() req: RequestWithUser,
-  ) {
-    return this.usersService.update(updateUserDto, req);
   }
 }
