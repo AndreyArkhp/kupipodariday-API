@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { OffersService } from './offers.service';
 import { CreateOfferDto } from './dto/create-offer.dto';
 import { UpdateOfferDto } from './dto/update-offer.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('offers')
+@UseGuards(AuthGuard('jwt'))
 export class OffersController {
   constructor(private readonly offersService: OffersService) {}
 

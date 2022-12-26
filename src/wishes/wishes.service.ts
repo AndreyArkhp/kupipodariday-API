@@ -4,7 +4,6 @@ import { RequestWithUser } from 'src/types';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateWishDto } from './dto/create-wish.dto';
-import { UpdateWishDto } from './dto/update-wish.dto';
 import { Wish } from './entities/wish.entity';
 
 @Injectable()

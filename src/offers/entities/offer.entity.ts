@@ -10,7 +10,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { lengthNumberOfMoney, roundToHundredths } from '../../common/constants';
+import { roundToHundredths } from '../../common/constants';
 
 @Entity()
 export class Offer {
@@ -26,6 +26,7 @@ export class Offer {
   @JoinColumn()
   user: User;
   @Column({
+    type: 'numeric',
     scale: roundToHundredths,
   })
   amount: number;

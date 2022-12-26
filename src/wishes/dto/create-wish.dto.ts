@@ -7,9 +7,9 @@ import {
   Min,
 } from 'class-validator';
 import {
+  numberLimitMessageForHundredths,
   wishDescriptionLength,
   wishNameLength,
-  wishNumberLimitMessage,
 } from 'src/common/constants';
 
 export class CreateWishDto {
@@ -23,7 +23,7 @@ export class CreateWishDto {
   @IsNumber(
     { maxDecimalPlaces: 2, allowNaN: false, allowInfinity: false },
     {
-      message: wishNumberLimitMessage,
+      message: numberLimitMessageForHundredths,
     },
   )
   @IsPositive()
