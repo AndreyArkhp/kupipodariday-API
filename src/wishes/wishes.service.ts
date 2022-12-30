@@ -77,6 +77,7 @@ export class WishesService {
     const newWish = {
       ...rest,
       raised: '0',
+      copied: 0,
     };
     return this.create(newWish, req);
   }
