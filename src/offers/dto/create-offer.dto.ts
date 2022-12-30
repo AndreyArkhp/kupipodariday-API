@@ -1,4 +1,4 @@
-import { IsNumber, IsPositive, IsBoolean } from 'class-validator';
+import { IsNumber, IsPositive, IsBoolean, IsOptional } from 'class-validator';
 import { numberLimitMessageForHundredths } from '../../common/constants';
 
 export class CreateOfferDto {
@@ -9,6 +9,7 @@ export class CreateOfferDto {
   @IsPositive()
   amount: number;
   @IsBoolean()
+  @IsOptional()
   hidden: boolean;
   @IsNumber()
   @IsPositive()

@@ -23,11 +23,11 @@ export class OffersService {
     return this.offersRepository.findOneBy({ id });
   }
 
-  update(id: number, updateOfferDto: UpdateOfferDto) {
-    return `This action updates a #${id} offer`;
-  }
+  // update(id: number, updateOfferDto: UpdateOfferDto) {
+  //   return `This action updates a #${id} offer`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} offer`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} offer`;
+  // }
 }
